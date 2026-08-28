@@ -55,7 +55,18 @@ async function handle(
     case ApiPath["302.AI"]:
       return ai302Handler(req, { params });
     default:
-      return proxyHandler(req, { params });
+      return new Response(
+        JSON.stringify({
+          error: true,
+          message: "Proxy route disabled",
+        }),
+        {
+          status: 404,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        },
+      );
   }
 }
 
